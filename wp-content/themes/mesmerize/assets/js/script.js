@@ -116,11 +116,15 @@ function feedback(event) {
 
   xhttp.onreadystatechange = function () {
     if (xhttp.readyState == 4 && xhttp.status == 200)
-      alert(xhttp.responseText);
+      if (+xhttp.responseText == 1) {
+        alert("Ваше сообщение отправлено!");
+      } else {
+        alert("Возникла ошибка. Возможно вы уже отправляли письмо, попробуйте позже.");
+      }
   }
   if (name.length > 1 && phone.length >= 10) {
-    xhttp.open("POST", "wp-content/themes/mesmerize/single.php", true);
-    xhttp.send("name=" + name + "&phone=" + phone);
+    xhttp.open("GET", "wp-content/themes/mesmerize/single.php?name=" + name + "&phone=" + phone + "&r=" + Math.random(), true);
+    xhttp.send();
   }
 }
 
