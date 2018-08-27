@@ -402,10 +402,11 @@
           </div>
         </section>
 
-        <aside class="main-container">
+        <aside>
           <h3 class="main__caption _bubbles"><a id="invoices">Фактуры натяжных потолков</a></h3>
-          <div class="invoices">
-            <div class="invoices__item">
+          <div class="invoices-slider swiper-container _view">
+           <div class="swiper-wrapper">
+              <div class="swiper-slide _invoices">
               <figure class="swiper-slide__btn-v">
                 <i class="swiper-slide__view"></i>
                 <img class="invoices__img preview" src="wp-content/uploads/invoices1.jpg" alt="Глянцевые">
@@ -415,7 +416,7 @@
                 </div>
               </figure>
             </div>
-            <div class="invoices__item">
+            <div class="swiper-slide _invoices">
               <figure class="swiper-slide__btn-v">
                 <i class="swiper-slide__view"></i>
                 <img class="invoices__img preview" src="wp-content/uploads/invoices2.jpg" alt="Матовые">
@@ -425,7 +426,7 @@
                 </div>
               </figure>
             </div>
-            <div class="invoices__item">
+            <div class="swiper-slide _invoices">
               <figure class="swiper-slide__btn-v">
                 <i class="swiper-slide__view"></i>
                 <img class="invoices__img preview" src="wp-content/uploads/invoices3.jpg" alt="Сатиновые">
@@ -435,7 +436,7 @@
                 </div>
               </figure>
             </div>
-            <div class="invoices__item">
+            <div class="swiper-slide _invoices">
               <figure class="swiper-slide__btn-v">
                 <i class="swiper-slide__view"></i>
                 <img class="invoices__img preview" src="wp-content/uploads/invoices4.jpg" alt="Шелкография (фактурные)">
@@ -445,7 +446,7 @@
                 </div>
               </figure>
             </div>
-            <div class="invoices__item">
+            <div class="swiper-slide _invoices">
               <figure class="swiper-slide__btn-v">
                 <i class="swiper-slide__view"></i>
                 <img class="invoices__img preview" src="wp-content/uploads/invoices5.jpg" alt="Ткань">
@@ -455,7 +456,7 @@
                 </div>
               </figure>
             </div>
-            <div class="invoices__item">
+            <div class="swiper-slide _invoices">
               <figure class="swiper-slide__btn-v">
                 <i class="swiper-slide__view"></i>
                 <img class="invoices__img preview" src="wp-content/uploads/invoices6.jpg" alt="Резные">
@@ -465,6 +466,9 @@
                 </div>
               </figure>
             </div>
+            </div>
+            <div class="swiper-button-next _invoices"></div>
+            <div class="swiper-button-prev _invoices"></div>
           </div>
         </aside>
 
@@ -725,6 +729,9 @@
           <div class="img-view__box">
             <div class="img-view__bg"></div>
             <img class="img-view__img" src="#" alt="Горизонт">
+            <div class="img-view__prev swiper-button-prev"></div>
+            <div class="img-view__next swiper-button-next"></div>
+            <i class="img-view__close"></i>
           </div>
         </aside>
       </main>
