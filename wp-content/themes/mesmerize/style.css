@@ -159,7 +159,9 @@ Navigate-top
   transition: box-shadow 0.2s, font-size 0.2s;
 }
 
-.menu-top__link:hover {
+.menu-top__link:hover,
+.menu-top__link:active,
+.menu-top__link:focus {
   position: absolute;
   z-index: 2;
   font-size: 21px;
