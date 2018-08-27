@@ -2,6 +2,11 @@
   /* gallery */
 
   var jumbotron = new Swiper('.jumbotron', {
+    preloadImages: false,
+    lazy: {
+      loadPrevNext: true,
+      loadPrevNextAmount: 1
+    },
     loop: true,
     autoplay: {
       delay: 2500,
@@ -14,6 +19,11 @@
   });
 
   var workss = new Swiper('.our-works-slider', {
+    preloadImages: false,
+    lazy: {
+      loadPrevNext: true,
+      loadPrevNextAmount: 6
+    },
     loop: true,
     slidesPerView: 'auto',
     autoplay: {
@@ -27,6 +37,11 @@
   });
 
 var invoicess = new Swiper('.invoices-slider', {
+    preloadImages: false,
+    lazy: {
+      loadPrevNext: true,
+      loadPrevNextAmount: 6
+    },
     loop: true,
     slidesPerView: 'auto',
     spaceBetween: 30,
@@ -41,6 +56,11 @@ var invoicess = new Swiper('.invoices-slider', {
   });
 
   var lamps = new Swiper('.lamp-slider', {
+    preloadImages: false,
+    lazy: {
+      loadPrevNext: true,
+      loadPrevNextAmount: 6
+    },
     loop: true,
     slidesPerView: 'auto',
     spaceBetween: 30,
@@ -55,6 +75,11 @@ var invoicess = new Swiper('.invoices-slider', {
   });
 
   var technologys = new Swiper('.technology-slider', {
+    preloadImages: false,
+    lazy: {
+      loadPrevNext: true,
+      loadPrevNextAmount: 6
+    },
     loop: true,
     slidesPerView: 'auto',
     spaceBetween: 30,
