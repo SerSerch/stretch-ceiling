@@ -805,8 +805,25 @@
       </div>
     </footer>
   </div>
-  <link rel="stylesheet" href="wp-content/themes/mesmerize/style.min.css">
-  <link rel="stylesheet" href="wp-content/themes/mesmerize/style.css">
+  <noscript id="deferred-styles">
+      <link rel="stylesheet" href="wp-content/themes/mesmerize/style.min.css">
+      <link rel="stylesheet" href="wp-content/themes/mesmerize/style.css">
+    </noscript>
+  <script>
+    var loadDeferredStyles = function() {
+      var addStylesNode = document.getElementById("deferred-styles");
+      var replacement = document.createElement("div");
+      replacement.innerHTML = addStylesNode.textContent;
+      document.body.appendChild(replacement)
+      addStylesNode.parentElement.removeChild(addStylesNode);
+    };
+    var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function() {
+      window.setTimeout(loadDeferredStyles, 0);
+    });
+    else window.addEventListener('load', loadDeferredStyles);
+  </script>
   <script src="wp-content/themes/mesmerize/assets/js/theme.min.js"></script>
   <script src="wp-content/themes/mesmerize/assets/js/theme.js"></script>
 </body>
