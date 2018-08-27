@@ -234,6 +234,11 @@ var invoicess = new Swiper('.invoices-slider', {
   }
 
   window.onload = function () {
+    jumbotron.update();
+    workss.update();
+    invoicess.update();
+    technologys.update();
+    lamps.update();
 
     document.querySelector('.img-view__bg').addEventListener('click', closeView);
     document.querySelector('.img-view__close').addEventListener('click', closeView);
