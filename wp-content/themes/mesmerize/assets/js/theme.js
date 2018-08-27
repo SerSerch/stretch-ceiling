@@ -3590,61 +3590,7 @@
 //# sourceMappingURL=swiper.min.js.map
 
 
-/**
-/* gallery */
 
-new Swiper('.jumbotron', {
-  loop: true,
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next._jumbotron',
-    prevEl: '.swiper-button-prev._jumbotron',
-  },
-});
-
-var works = new Swiper('.our-works-slider', {
-  loop: true,
-  slidesPerView: 'auto',
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next._our-works',
-    prevEl: '.swiper-button-prev._our-works',
-  },
-});
-
-var lamps = new Swiper('.lamp-slider', {
-  loop: true,
-  slidesPerView: 'auto',
-  spaceBetween: 30,
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next._lamp',
-    prevEl: '.swiper-button-prev._lamp',
-  },
-});
-
-var technology = new Swiper('.technology-slider', {
-  loop: true,
-  slidesPerView: 'auto',
-  spaceBetween: 30,
-  autoplay: {
-    delay: 2500,
-    disableOnInteraction: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next._technology',
-    prevEl: '.swiper-button-prev._technology',
-  }
-});
 
 //олучаем имя картинки
 
@@ -3662,21 +3608,6 @@ function openView(event) {
   document.querySelector('.img-view').classList.add('_active');
   document.querySelector('body').classList.add('hidden');
   window[imgView[1]].autoplay.stop();
-}
-
-let viewEl = document.querySelectorAll('.swiper-slide._our-works');
-for (let l = viewEl.length - 1; l >= 0; l--) {
-  viewEl[l].addEventListener('click', openView);
-}
-
-let viewEl2 = document.querySelectorAll('.swiper-slide._technology');
-for (let l = viewEl2.length - 1; l >= 0; l--) {
-  viewEl2[l].addEventListener('click', openView);
-}
-
-let viewEl3 = document.querySelectorAll('.invoices__item');
-for (let l = viewEl3.length - 1; l >= 0; l--) {
-  viewEl3[l].addEventListener('click', openView);
 }
 
 function closeView(event) {
@@ -3785,6 +3716,82 @@ function inputPhone(e) {
 }
 
 window.onload = function () {
+  /**
+/* gallery */
+
+  let jumbotron = new Swiper('.jumbotron', {
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next._jumbotron',
+      prevEl: '.swiper-button-prev._jumbotron',
+    },
+  });
+
+  let works = new Swiper('.our-works-slider', {
+    loop: true,
+    slidesPerView: 'auto',
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next._our-works',
+      prevEl: '.swiper-button-prev._our-works',
+    },
+  });
+
+  let lamps = new Swiper('.lamp-slider', {
+    loop: true,
+    slidesPerView: 'auto',
+    spaceBetween: 30,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next._lamp',
+      prevEl: '.swiper-button-prev._lamp',
+    },
+  });
+
+  let technology = new Swiper('.technology-slider', {
+    loop: true,
+    slidesPerView: 'auto',
+    spaceBetween: 30,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next._technology',
+      prevEl: '.swiper-button-prev._technology',
+    }
+  });
+
+  let viewEl = document.querySelectorAll('.swiper-slide._our-works');
+  for (let l = viewEl.length - 1; l >= 0; l--) {
+    viewEl[l].addEventListener('click', openView);
+  }
+
+  let viewEl2 = document.querySelectorAll('.swiper-slide._technology');
+  for (let l = viewEl2.length - 1; l >= 0; l--) {
+    viewEl2[l].addEventListener('click', openView);
+  }
+
+  let viewEl3 = document.querySelectorAll('.invoices__item');
+  for (let l = viewEl3.length - 1; l >= 0; l--) {
+    viewEl3[l].addEventListener('click', openView);
+  }
+
+  let viewEl4 = document.querySelectorAll('.swiper-slide._lamp');
+  for (let l = viewEl4.length - 1; l >= 0; l--) {
+    viewEl4[l].addEventListener('click', openView);
+  }
+
   let feedback_b = document.querySelectorAll(".feedback__button");
   for (let b of feedback_b) {
     b.addEventListener('click', feedback);

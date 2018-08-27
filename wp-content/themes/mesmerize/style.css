@@ -716,6 +716,7 @@ Main
   margin: auto auto;
   max-width: 100%;
   max-height: 100%;
+  min-width: 50%;
 }
 
 .img-view._active .img-view__img {
