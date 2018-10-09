@@ -591,6 +591,20 @@ Footer
   text-align: center;
 }
 
+.menu-bot {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 0 76px;
+  padding: 0;
+}
+
+.menu-bot__link {
+  display: block;
+  padding: 10px;
+}
+
 @media (max-width: 991px) {
   .header {
     position: fixed;
