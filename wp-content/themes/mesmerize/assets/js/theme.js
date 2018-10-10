@@ -1,131 +1,38 @@
-  /**
-  /* gallery */
-
-  var jumbotron = new Swiper('.jumbotron', {
-    preloadImages: false,
-    lazy: {
-      loadPrevNext: true,
-      loadPrevNextAmount: 1
-    },
-    loop: true,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next._jumbotron',
-      prevEl: '.swiper-button-prev._jumbotron',
-    },
-  });
-
-  var workss = new Swiper('.our-works-slider', {
-    preloadImages: false,
-    lazy: {
-      loadPrevNext: true,
-      loadPrevNextAmount: 6
-    },
-    loop: true,
-    slidesPerView: 'auto',
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next._our-works',
-      prevEl: '.swiper-button-prev._our-works',
-    },
-  });
-
-var invoicess = new Swiper('.invoices-slider', {
-    preloadImages: false,
-    lazy: {
-      loadPrevNext: true,
-      loadPrevNextAmount: 6
-    },
-    loop: true,
-    slidesPerView: 'auto',
-    spaceBetween: 30,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next._invoices',
-      prevEl: '.swiper-button-prev._invoices',
-    },
-  });
-
-  var lamps = new Swiper('.lamp-slider', {
-    preloadImages: false,
-    lazy: {
-      loadPrevNext: true,
-      loadPrevNextAmount: 6
-    },
-    loop: true,
-    slidesPerView: 'auto',
-    spaceBetween: 30,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next._lamp',
-      prevEl: '.swiper-button-prev._lamp',
-    },
-  });
-
-  var technologys = new Swiper('.technology-slider', {
-    preloadImages: false,
-    lazy: {
-      loadPrevNext: true,
-      loadPrevNextAmount: 6
-    },
-    loop: true,
-    slidesPerView: 'auto',
-    spaceBetween: 30,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next._technology',
-      prevEl: '.swiper-button-prev._technology',
-    }
-  });
-
-  var viewElement;
+  var viewElement,
+    gallery = {};
 
   //олучаем имя картинки
 
   function nameImg(elem) {
-    let reg = /wp-content\/uploads\/([A-z]+)[0-9]+\.[A-z]+/;
-    return reg.exec(elem.querySelector('.preview').src);
+    let reg = /([A-z]+)([0-9]+)s?(\.[A-z]+)/g;
+    let img = elem.querySelector('.preview');
+    let res = img.src || img.getAttribute('data-src');
+    return reg.exec(res);
   }
 
   //открываем картинку на весь экран
 
-  function openView(element) {
-    let imgView = nameImg(element);
-    document.querySelector('.img-view__img').src = imgView[0];
+  function openView(elem) {
+    let imgView = nameImg(elem);
+    document.querySelector('.img-view__img').src = 'wp-content/uploads/' + imgView[1] + imgView[2] + imgView[3];
     document.querySelector('.img-view').classList.add('_active');
     document.querySelector('body').classList.add('hidden');
-    let slider = window[(imgView[1] + 's')];
+    let slider = (imgView[1] + 's');
 
     if (slider) {
-      viewElement = [slider, element];
-      slider.autoplay.stop();
+      viewElement = [slider, elem];
     }
 
   }
 
   function prevView() {
-    viewElement[0].slidePrev();
+    gallery[viewElement[0]].slidePrev();
     let elem = viewElement[1].previousElementSibling || viewElement[1].parentElement.lastElementChild;
     openView(elem);
   }
 
   function nextView() {
-    viewElement[0].slideNext();
+    gallery[viewElement[0]].slideNext();
     let elem = viewElement[1].nextElementSibling || viewElement[1].parentElement.firstElementChild;
     openView(elem);
   }
@@ -233,12 +140,159 @@ var invoicess = new Swiper('.invoices-slider', {
     }
   }
 
+  function price(event) {
+    event = event || window.event;
+    let valueEvent = event.target.value;
+    let nameEvent = (/([a-z]+)(\d)/g).exec(event.target.name);
+    let numBox = nameEvent[2] == 2 ? 1 : 2;
+    let manufacturer;
+    const [...manufRadio] = document.getElementsByName('manufacturer' + nameEvent[2]);
+    let manufRadioItem;
+    
+    if (isNaN(valueEvent) || valueEvent < 0) {
+      event.target.value = '';
+      valueEvent = '';
+    }
+    
+    manufRadio.forEach((item, i) => {
+      if (item.checked) {
+        manufacturer = +item.dataset.value;
+        manufRadioItem = i;
+      }
+    });
+    
+    
+    if (event.target.type == 'text') {
+      document.getElementsByName(nameEvent[1] + numBox)[0].value = valueEvent;
+    } else {
+      document.getElementsByName(nameEvent[1] + numBox)[manufRadioItem].checked = true;
+    }
+    
+    let area = +document.getElementsByName('area1')[0].value;
+    let corner = document.getElementsByName('corner1')[0];
+    let cornice = document.getElementsByName('cornice1')[0];
+    let lamp = document.getElementsByName('lamp1')[0];
+    let chandelier = document.getElementsByName('chandelier1')[0];
+    let res = manufacturer * area +
+      corner.value * corner.dataset.value +
+      cornice.value * cornice.dataset.value +
+      lamp.value * lamp.dataset.value +
+      chandelier.value * chandelier.dataset.value;
+    
+    document.querySelector('#calculator1 .calculator__price').innerText = isNaN(res) ? 'Неверные параметры' : `Сумма: ${res} руб.`;
+    document.querySelector('#calculator2 .calculator__price').innerText = isNaN(res) ? 'Неверные параметры' : `Сумма: ${res} руб.`;
+  }
+
   window.onload = function () {
-    jumbotron.update();
-    workss.update();
-    invoicess.update();
-    technologys.update();
-    lamps.update();
+
+    /**
+    /* gallery */
+
+    gallery.jumbotron = new Swiper('.jumbotron', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 1
+      },
+      watchSlidesVisibility: true,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next._jumbotron',
+        prevEl: '.swiper-button-prev._jumbotron',
+      },
+      breakpoints: {
+        991: {
+          autoplay: false
+        }
+      }
+    });
+
+    gallery.workss = new Swiper('.our-works-slider', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 1
+      },
+      watchSlidesVisibility: true,
+      loop: true,
+      slidesPerView: 'auto',
+      navigation: {
+        nextEl: '.swiper-button-next._our-works',
+        prevEl: '.swiper-button-prev._our-works',
+      },
+      breakpoints: {
+        400: {
+          slidesPerView: 1
+        }
+      }
+    });
+
+    gallery.invoicess = new Swiper('.invoices-slider', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 1
+      },
+      watchSlidesVisibility: true,
+      loop: true,
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      navigation: {
+        nextEl: '.swiper-button-next._invoices',
+        prevEl: '.swiper-button-prev._invoices',
+      },
+      breakpoints: {
+        400: {
+          slidesPerView: 1
+        }
+      }
+    });
+
+    gallery.lamps = new Swiper('.lamp-slider', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 1
+      },
+      watchSlidesVisibility: true,
+      loop: true,
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      navigation: {
+        nextEl: '.swiper-button-next._lamp',
+        prevEl: '.swiper-button-prev._lamp',
+      },
+      breakpoints: {
+        400: {
+          slidesPerView: 1
+        }
+      }
+    });
+
+    gallery.technologys = new Swiper('.technology-slider', {
+      preloadImages: false,
+      lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 1
+      },
+      watchSlidesVisibility: true,
+      loop: true,
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      navigation: {
+        nextEl: '.swiper-button-next._technology',
+        prevEl: '.swiper-button-prev._technology',
+      },
+      breakpoints: {
+        400: {
+          slidesPerView: 1
+        }
+      }
+    });
 
     document.querySelector('.img-view__bg').addEventListener('click', closeView);
     document.querySelector('.img-view__close').addEventListener('click', closeView);
@@ -249,29 +303,33 @@ var invoicess = new Swiper('.invoices-slider', {
 
     let viewEl = document.querySelectorAll('.swiper-slide._our-works');
     for (let l = viewEl.length - 1; l >= 0; l--) {
-      viewEl[l].addEventListener('click', function (e) {
-        openView(e.currentTarget)
+      viewEl[l].addEventListener('click', function (event) {
+        event = event || window.event;
+        openView(event.currentTarget);
       });
     }
 
     let viewEl2 = document.querySelectorAll('.swiper-slide._technology');
     for (let l = viewEl2.length - 1; l >= 0; l--) {
-      viewEl2[l].addEventListener('click', function (e) {
-        openView(e.currentTarget)
+      viewEl2[l].addEventListener('click', function (event) {
+        event = event || window.event;
+        openView(event.currentTarget);
       });
     }
 
     let viewEl3 = document.querySelectorAll('.swiper-slide._invoices');
     for (let l = viewEl3.length - 1; l >= 0; l--) {
-      viewEl3[l].addEventListener('click', function (e) {
-        openView(e.currentTarget)
+      viewEl3[l].addEventListener('click', function (event) {
+        event = event || window.event;
+        openView(event.currentTarget);
       });
     }
 
     let viewEl4 = document.querySelectorAll('.swiper-slide._lamp');
     for (let l = viewEl4.length - 1; l >= 0; l--) {
-      viewEl4[l].addEventListener('click', function (e) {
-        openView(e.currentTarget)
+      viewEl4[l].addEventListener('click', function (event) {
+        event = event || window.event;
+        openView(event.currentTarget);
       });
     }
 
@@ -290,4 +348,8 @@ var invoicess = new Swiper('.invoices-slider', {
       i.addEventListener('input', inputPhone);
     }
 
+    const [...calcInput1] = document.querySelector('#calculator1').querySelectorAll('input');
+    calcInput1.map(input => input.addEventListener('change', price));
+    const [...calcInput2] = document.querySelector('#calculator2').querySelectorAll('input');
+    calcInput2.map(input => input.addEventListener('change', price));
   };
