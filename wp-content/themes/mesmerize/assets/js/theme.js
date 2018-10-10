@@ -220,6 +220,7 @@
       watchSlidesVisibility: true,
       loop: true,
       slidesPerView: 'auto',
+      spaceBetween: 30,
       navigation: {
         nextEl: '.swiper-button-next._our-works',
         prevEl: '.swiper-button-prev._our-works',
